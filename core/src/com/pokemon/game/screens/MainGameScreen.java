@@ -2,10 +2,12 @@ package com.pokemon.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -25,8 +27,9 @@ public class MainGameScreen implements Screen {
         map = new TmxMapLoader().load("newmap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        player = new Player(new Sprite(new Texture("player.png")));
-        player.setPosition(300, 300);
+        player = new Player(new Sprite( (GameConstants.defaultDownStance)), (TiledMapTileLayer) map.getLayers().get(1));
+//        player = new Player();
+        player.setPosition(((TiledMapTileLayer) map.getLayers().get(0)).getTileWidth() * 7, ((TiledMapTileLayer) map.getLayers().get(0)).getTileHeight() * 8);
 
         Gdx.input.setInputProcessor(player);
 
@@ -39,6 +42,10 @@ public class MainGameScreen implements Screen {
         camera.position.set(player.getX() + player.getWidth() /2, player.getY() + player.getHeight() /2,0);
         camera.update();
         renderer.setView(camera);
+
+
+
+
         if(player.getX() < 0 ) {
             player.setX(player.getX() + player.getSpeed());
         }
@@ -51,6 +58,7 @@ public class MainGameScreen implements Screen {
         if(player.getY() < 0) {
             player.setY(player.getY() + player.getSpeed());
         }
+
 
 
         renderer.getBatch().begin();
