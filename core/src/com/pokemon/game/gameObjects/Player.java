@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.pokemon.game.GameConstants;
@@ -42,169 +43,50 @@ public class Player extends Sprite implements InputProcessor {
         float tileHeight = collisionSpot.getTileHeight();
         boolean collisionX = false;
         boolean collisionY = false;
+        int playerX = (int) (getX() / tileWidth);
+        int playerY = (int) (getY() / tileHeight);
+        boolean speedStatus;
 
         setX(getX() + this.velocity.x * delta); //reposition with frames
+        setY(getY() + this.velocity.y * delta);
 
+        //Because I'm using if statements, it prioritzes up and left in checking collision
 
         if(velocity.x < 0) {
+           collisionX = isCellBlocked(playerX - 1, playerY);
+           if(!collisionX) collisionX = isCellBlocked(playerX - 1, playerY -1);
+           if(!collisionX) collisionX = isCellBlocked(playerX - 1, playerY + 1);
 
-            if (!collisionX) {
-
-                try {
-
-                    collisionX = collisionSpot.getCell((int) (getX() / tileWidth), (int) (getY() + getHeight() / tileHeight)).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-            }
-
-
-            //left
-            if (!collisionX) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() / tileWidth), (int) ((getY() + getHeight()) / 2 / tileHeight)).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-
-            }
-
-            }
-
-            //diagnal bot left
-            if (!collisionX) {
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() / tileWidth), (int) ((getY() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-
-            } else if (velocity.x > 0) {
-            //top right
-
-            if(!collisionX) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() + getWidth() / tileWidth), (int) (getY() + getHeight() / tileHeight)).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-
-
-                }
-            }
-            //middle right
-            if (!collisionX) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() + getWidth() / tileWidth), (int) ((getY() + getWidth() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-            }
-            if (!collisionX) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() + getWidth() / tileWidth), (int) ((getY() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-            }
-
+        } else if(velocity.x > 0) {
+            collisionX = isCellBlocked(playerX + 1, playerY);
+            if(!collisionX) collisionX = isCellBlocked(playerX + 1, playerY -1);
+            if(!collisionX) collisionX = isCellBlocked(playerX + 1, playerY + 1);
         }
 
         if(collisionX) {
             setX(oldX);
-            this.velocity.x = 0;
-        }
-
-        setY(getY() + this.velocity.y * delta);
-
-
-        if (velocity.y < 0) {
-
-            if(!collisionY) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() / tileWidth), (int) (getY() / tileHeight)).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-                //bot left
-            } //bot mid
-            if (!collisionY) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) ((getX() + getWidth()) / 2 / tileWidth), (int) ((getY() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                    System.out.println("collision");
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-            }
-
-            //bot right
-            if (!collisionY) {
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() + getWidth() / tileWidth), (int) ((getY() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-
-            }
-        }else if (velocity.y > 0) {
-                //top left
-
-            if(!collisionY) {
-
-                try {
-                    collisionY = collisionSpot.getCell((int) (getX() / tileWidth), (int) ((getY() + getHeight()) / tileHeight)).getTile().getProperties().containsKey("blocked");
-                } catch (Exception e) {
-                    System.out.println("null tileeee");
-                }
-            }  //top mid
-                if (!collisionY) {
-                    try {
-                        collisionY = collisionSpot.getCell((int) ((getX() + getWidth()) / 2 / tileWidth), (int) ((getY() + getHeight() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                    } catch (Exception e) {
-                        System.out.println("null tileeee");
-                    }
-
-                }
-
-                //top right
-                if (!collisionY) {
-                    try {
-                        collisionY = collisionSpot.getCell((int) ((getX() + getWidth() / 2 / tileWidth)), (int) ((getY() / tileHeight))).getTile().getProperties().containsKey("blocked");
-                    } catch (Exception e) {
-                        System.out.println("null tileeee");
-                    }
-                }
-
-            }
-
-
-        if(collisionY) {
             setY(oldY);
             this.velocity.x = 0;
         }
+
+        if (velocity.y < 0) {
+                collisionY = isCellBlocked(playerX , playerY - 1);
+                if(!collisionY) collisionY = isCellBlocked(playerX - 1, playerY -1);
+                if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY - 1);
+
+        }else if (velocity.y > 0) {
+                //top left
+            collisionY = isCellBlocked(playerX , playerY + 1);
+            if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY + 1);
+            if(!collisionX) collisionY = isCellBlocked(playerX - 1, playerY + 1);
+            }
+
+        if(collisionY) {
+            setY(oldY);
+            setX(oldX);
+            this.velocity.y = 0;
+        }
+
     }
 
 
@@ -230,13 +112,21 @@ public class Player extends Sprite implements InputProcessor {
     }
 
 
+    private boolean isCellBlocked(float x, float y){
+        TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
+        if (cell == null) return false;            // not sure if this is needed
+        if (cell.getTile() == null) return false;  // probably only tiles can be null
+
+        MapProperties properties = cell.getTile().getProperties();
+        if (properties == null) return false;      // also not sure if it can be null
+
+        return properties.containsKey("blocked");    }
 
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.W:
                 this.setRegion(GameConstants.defaultUpStance);
-//                setCurrentSpeed(-getCurrentSpeed());
                 this.velocity.y = speed;
                 break;
             case Input.Keys.S:

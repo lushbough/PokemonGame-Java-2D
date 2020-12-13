@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.useGL30 = true;
 
 		config.resizable= false;
-//		config.vSyncEnabled = true; //maybe delete
+		config.vSyncEnabled = true; //maybe delete
 		new LwjglApplication(new PokemonGame(), config);
 	}
 }
