@@ -43,8 +43,8 @@ public class MainGameScreen implements Screen {
         platformMusic.setLooping(true);
         platformMusic.play();
 
-        player = new Player(new Sprite( (GameConstants.defaultDownStance)), (TiledMapTileLayer) map.getLayers().get(1));
-        player.getCurrentPokemon().put("pikachu",PokemonDataBase.pokemonList.get(2));
+        player = new Player(new Sprite((GameConstants.defaultDownStance)), (TiledMapTileLayer) map.getLayers().get(1));
+        player.getCurrentPokemon().put("pikachu", PokemonDataBase.pokemonList.get(2));
         player.setPosition(250, 665);
         grassCounter = 0;
         grassCheck = false;
@@ -96,26 +96,27 @@ public class MainGameScreen implements Screen {
             if (grassCounter == 100) {
                 Action.catchPokemon(player);
             }
-        }else grassCounter = 0; //reset counter to reenter grass
+        } else grassCounter = 0; //reset counter to reenter grass
 
         this.enemyCheck = player.isCellEnemy(player.getX() / player.getCollisionLayer().getTileWidth(), player.getY() / player.getCollisionLayer().getTileHeight());
-        if(enemyCheck) {
-            if(!(player.getCurrentPokemon().size() < 3)) {
+        if (enemyCheck) {
+            if (!(player.getCurrentPokemon().size() < 3)) {
                 boolean isVictory = Action.battleEnemy(player, new Enemy());
-                if (isVictory){
+                if (isVictory) {
                     JOptionPane.showMessageDialog(null, "You have won the game! + \n Keep playing or close the application");
                 } else {
                     JOptionPane.showMessageDialog(null, "You have lost the game. + \n Catch stronger Pokemon or close the application! ");
                 }
-            } else JOptionPane.showMessageDialog(null, "You must have 3 pokemon to battle  \n" + "You currently have " + player.getCurrentPokemon().size());
+            } else
+                JOptionPane.showMessageDialog(null, "You must have 3 pokemon to battle  \n" + "You currently have " + player.getCurrentPokemon().size());
         }
     }
 
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportHeight = height /1f;
-        camera.viewportWidth = width /1f;
+        camera.viewportHeight = height / 1f;
+        camera.viewportWidth = width / 1f;
         camera.update();
     }
 

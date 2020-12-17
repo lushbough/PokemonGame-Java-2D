@@ -11,24 +11,19 @@ import java.util.Map;
 
 public class Action {
 
-    public static boolean battleEnemy(Player player, Enemy enemy){
+    public static boolean battleEnemy(Player player, Enemy enemy) {
         boolean didWin = false;
         boolean exit = true;
         int i = 0;
         int j = 0;
         LinkedList<Pokemon> enemyPokemons = new LinkedList<>();
         LinkedList<Pokemon> playerPokemons = new LinkedList<>();
-        for(Map.Entry<String, Pokemon> entry : enemy.getCurrentPokemon().entrySet()) {
+        for (Map.Entry<String, Pokemon> entry : enemy.getCurrentPokemon().entrySet()) {
             enemyPokemons.add(entry.getValue());
         }
-        for(Map.Entry<String, Pokemon> entry : player.getCurrentPokemon().entrySet()) {
+        for (Map.Entry<String, Pokemon> entry : player.getCurrentPokemon().entrySet()) {
             playerPokemons.add(entry.getValue());
         }
-
-//        String[] list = player.generatePokemonList();
-//        int pokeChoice = JOptionPane.showOptionDialog(null, "Choose a Pokemon to Fight With!", "PokemonList", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, list, list[0]);
-//        Pokemon playerPokemon = player.getPokemon(list[pokeChoice]);
-
 
         int playerHealth = playerPokemons.get(i).getHealth();
         int enemyPokemonHealth = enemyPokemons.get(j).getHealth();

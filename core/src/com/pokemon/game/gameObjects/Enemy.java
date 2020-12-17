@@ -10,22 +10,22 @@ public class Enemy {
         return currentPokemon;
     }
 
-    public Enemy(){
+    public Enemy() {
         currentPokemon = new HashMap<>();
         loadPokemon();
     }
 
-    private void loadPokemon(){
+    private void loadPokemon() {
         currentPokemon.put("squirtle", PokemonDataBase.pokemonList.get(0));
         currentPokemon.put("charmander", PokemonDataBase.pokemonList.get(1));
         currentPokemon.put("pikachu", PokemonDataBase.pokemonList.get(2));
     }
 
-    public String[] generatePokemonList(){
+    public String[] generatePokemonList() {
         String[] list = new String[getCurrentPokemon().size()];
         int i = 0;
         getCurrentPokemon().size();
-        for(Map.Entry<String, Pokemon> entry : this.getCurrentPokemon().entrySet()) {
+        for (Map.Entry<String, Pokemon> entry : this.getCurrentPokemon().entrySet()) {
             list[i] = entry.getValue().getName();
             i++;
         }

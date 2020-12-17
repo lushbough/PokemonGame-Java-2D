@@ -8,22 +8,22 @@ import com.pokemon.game.gameObjects.Player;
 
 public class Collisions {
 
-    public static void checkBorders(Player player){
-        if(player.getX() < 0 ) {
+    public static void checkBorders(Player player) {
+        if (player.getX() < 0) {
             player.setX(player.getX() + player.getSpeed());
         }
-        if(player.getX() > GameConstants.MAPWIDTH) {
+        if (player.getX() > GameConstants.MAPWIDTH) {
             player.setX(player.getX() - player.getSpeed());
         }
-        if(player.getY() > GameConstants.MAPHEIGHT) {
+        if (player.getY() > GameConstants.MAPHEIGHT) {
             player.setY(player.getY() - player.getSpeed());
         }
-        if(player.getY() < 0) {
+        if (player.getY() < 0) {
             player.setY(player.getY() + player.getSpeed());
         }
     }
 
-    public static void checkBlockedCollisions(Player player){
+    public static void checkBlockedCollisions(Player player) {
 
         float oldX = player.getX();
         float oldY = player.getY();
@@ -39,37 +39,36 @@ public class Collisions {
 
         //Because I'm using if statements, it prioritzes up and left in checking collision
 
-        if(player.getVelocity().x < 0) {
-            collisionX = isCellBlocked(playerX - 1, playerY , player);
-            if(!collisionX) collisionX = isCellBlocked(playerX - 1, playerY -1, player);
-            if(!collisionX) collisionX = isCellBlocked(playerX - 1, playerY + 1, player);
+        if (player.getVelocity().x < 0) {
+            collisionX = isCellBlocked(playerX - 1, playerY, player);
+            if (!collisionX) collisionX = isCellBlocked(playerX - 1, playerY - 1, player);
+            if (!collisionX) collisionX = isCellBlocked(playerX - 1, playerY + 1, player);
 
-        } else if(player.getVelocity().x > 0) {
+        } else if (player.getVelocity().x > 0) {
             collisionX = isCellBlocked(playerX + 1, playerY, player);
-            if(!collisionX) collisionX = isCellBlocked(playerX + 1, playerY -1, player);
-            if(!collisionX) collisionX = isCellBlocked(playerX + 1, playerY + 1, player);
+            if (!collisionX) collisionX = isCellBlocked(playerX + 1, playerY - 1, player);
+            if (!collisionX) collisionX = isCellBlocked(playerX + 1, playerY + 1, player);
         }
 
-        if(collisionX) {
+        if (collisionX) {
             player.setX(oldX);
             player.setY(oldY);
             player.getVelocity().x = 0;
         }
 
         if (player.getVelocity().y < 0) {
-            collisionY = isCellBlocked(playerX , playerY - 1, player);
-            if(!collisionY) collisionY = isCellBlocked(playerX - 1, playerY -1, player);
-            if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY - 1, player);
+            collisionY = isCellBlocked(playerX, playerY - 1, player);
+            if (!collisionY) collisionY = isCellBlocked(playerX - 1, playerY - 1, player);
+            if (!collisionY) collisionY = isCellBlocked(playerX + 1, playerY - 1, player);
 
 
-
-        }else if (player.getVelocity().y > 0) {
-            collisionY = isCellBlocked(playerX , playerY + 1, player);
-            if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY + 1, player);
-            if(!collisionX) collisionY = isCellBlocked(playerX - 1, playerY + 1, player);
+        } else if (player.getVelocity().y > 0) {
+            collisionY = isCellBlocked(playerX, playerY + 1, player);
+            if (!collisionY) collisionY = isCellBlocked(playerX + 1, playerY + 1, player);
+            if (!collisionX) collisionY = isCellBlocked(playerX - 1, playerY + 1, player);
         }
 
-        if(collisionY) {
+        if (collisionY) {
             player.setY(oldY);
             player.setX(oldX);
             player.getVelocity().y = 0;
@@ -77,14 +76,15 @@ public class Collisions {
 
     }
 
-    public static boolean isCellBlocked(float x, float y, Player player){
-        TiledMapTileLayer.Cell cell = player.getCollisionLayer().getCell((int)x, (int) y);
+    public static boolean isCellBlocked(float x, float y, Player player) {
+        TiledMapTileLayer.Cell cell = player.getCollisionLayer().getCell((int) x, (int) y);
         if (cell == null) return false;
         if (cell.getTile() == null) return false;
 
         MapProperties properties = cell.getTile().getProperties();
         if (properties == null) return false;
 
-        return properties.containsKey("blocked");    }
+        return properties.containsKey("blocked");
+    }
 
 }
