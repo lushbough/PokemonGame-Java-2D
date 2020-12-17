@@ -2,6 +2,7 @@
 
 ## Student Name  : William Lushbough
 ## Student ID    : 920631410
+## Description   : This is a 2D platformer tile map game made with LibGDX and Intellij, along with Tiled game map editor. It aims to mimic the Gameboy Pokemon games. The catching Pokemon and battling phases are currently handled through JOptionalPanel but will soon be handled by LibGDX's Dialog class.
 
 ## How to Run : double click .jar file in jar folder or
         open "csc413-secondgame-whereswul" in terminal 
@@ -21,9 +22,9 @@
     Catch 3 Pokemon, then battle the trainer in the center of the map.
     You must walk around the flower grass area to catch a pokemon
     You must exit then reenter the flower grass area to catch another pokemon.
-## src folder is to be used to store source code only.
+## src folder is located at /core/src
 
-## resources folder is to be used to store the resources for your project only. This includes images, sounds, map text files, etc.
+## resources folder is labeled assets, located at /android/assets
 
 ## jar folder is used to store the built jar of your term-project. NO SOURCE CODE SHOULD BE IN THIS FOLDER. DOING SO WILL CAUSE POINTS TO BE DEDUCTED
 
