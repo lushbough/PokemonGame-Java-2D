@@ -33,7 +33,6 @@ public class Collisions {
         boolean collisionY = false;
         int playerX = (int) (player.getX() / tileWidth);
         int playerY = (int) (player.getY() / tileHeight);
-        boolean speedStatus;
 
         player.setX(player.getX() + player.getVelocity().x * Gdx.graphics.getDeltaTime()); //reposition with frames
         player.setY(player.getY() + player.getVelocity().y * Gdx.graphics.getDeltaTime());
@@ -65,7 +64,6 @@ public class Collisions {
 
 
         }else if (player.getVelocity().y > 0) {
-            //top left
             collisionY = isCellBlocked(playerX , playerY + 1, player);
             if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY + 1, player);
             if(!collisionX) collisionY = isCellBlocked(playerX - 1, playerY + 1, player);
@@ -81,11 +79,11 @@ public class Collisions {
 
     public static boolean isCellBlocked(float x, float y, Player player){
         TiledMapTileLayer.Cell cell = player.getCollisionLayer().getCell((int)x, (int) y);
-        if (cell == null) return false;            // not sure if this is needed
-        if (cell.getTile() == null) return false;  // probably only tiles can be null
+        if (cell == null) return false;
+        if (cell.getTile() == null) return false;
 
         MapProperties properties = cell.getTile().getProperties();
-        if (properties == null) return false;      // also not sure if it can be null
+        if (properties == null) return false;
 
         return properties.containsKey("blocked");    }
 

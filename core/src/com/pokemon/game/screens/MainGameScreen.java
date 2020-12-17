@@ -9,9 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.pokemon.game.GameConstants;
 import com.pokemon.game.PokemonGame;
 import com.pokemon.game.gameObjects.Enemy;
@@ -48,7 +45,6 @@ public class MainGameScreen implements Screen {
 
         player = new Player(new Sprite( (GameConstants.defaultDownStance)), (TiledMapTileLayer) map.getLayers().get(1));
         player.getCurrentPokemon().put("pikachu",PokemonDataBase.pokemonList.get(2));
-//        player.setPosition(((TiledMapTileLayer) map.getLayers().get(0)).getTileWidth() * 7, ((TiledMapTileLayer) map.getLayers().get(0)).getTileHeight() * 8);
         player.setPosition(250, 665);
         grassCounter = 0;
         grassCheck = false;
@@ -65,6 +61,7 @@ public class MainGameScreen implements Screen {
                 "\n" +
                 "Go in the grass to catch a new Pokemon  \n" +
                 "You can flea if you do not want the pokemon  \n" +
+                "You must exit then reenter the grass area to catch another pokemon.  \n" +
                 "Remember, you can only have 3 Pokemon  \n" +
                 "\n" +
                 "Fight the boss when you're ready");
@@ -90,7 +87,6 @@ public class MainGameScreen implements Screen {
         //end draw player
         renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("topLayer"));
         renderer.getBatch().end();
-//        getStage().draw();
 
         this.grassCheck = player.isCellGrass(player.getX() / player.getCollisionLayer().getTileWidth(), player.getY() / player.getCollisionLayer().getTileHeight());
         if (grassCheck) {

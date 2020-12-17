@@ -89,16 +89,6 @@ public class Action {
                             enemyPokemonHealth = enemyPokemons.getLast().getHealth();
                         }
                     }
-
-//                    if (enemyPokemons.isEmpty()) {
-//                        JOptionPane.showMessageDialog(null, "You have won!");
-//                        exit = false;
-//                    }
-//
-//                    if (playerPokemons.isEmpty()) {
-//                        JOptionPane.showMessageDialog(null, "You have been defeated!");
-//                        exit = false;
-//                    }
                     break;
                 }
                 case 1: {
@@ -106,7 +96,7 @@ public class Action {
                     break;
                 }
             }
-        } while (exit);
+        } while (exit); //exit battle sequence
         return didWin;
     }
 
@@ -187,8 +177,7 @@ public class Action {
                     break;
                 }
             }
-        } while (exit);
-
+        } while (exit); //exit catch pokemon sequence
     }
 }
 
