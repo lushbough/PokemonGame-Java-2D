@@ -1,26 +1,49 @@
 package com.pokemon.game;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pokemon.game.screens.MainGameScreen;
 
 public class PokemonGame extends Game {
-//	SpriteBatch batch;
+	private SpriteBatch batch;
+	private OrthographicCamera cam;
+	public BitmapFont font;
+
 //	Texture img;
 	
 	@Override
 	public void create () {
-		setScreen(new MainGameScreen());
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+//		mapSprite = new Sprite();
+
+		setScreen(new MainGameScreen(this));
+	}
+
+	@Override
+	public void resize(int width, int height) {
+
 	}
 
 	@Override
 	public void render () {
 
+		//game loop with logic of the game
+
 		super.render();
 	}
-	
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
 	@Override
 	public void dispose () {
 		super.dispose();

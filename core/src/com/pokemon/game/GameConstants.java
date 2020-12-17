@@ -9,6 +9,7 @@ public class GameConstants {
     public static final int MAPWIDTH = 800;
     public static final int MAPHEIGHT = 800;
 
+    public static Texture pokemonImageSet = new Texture("tileset-chars.png");
 
     //Player Images
     public static Texture playerOneImageSet = new Texture("tileset-chars.png");
@@ -17,6 +18,10 @@ public class GameConstants {
     public static TextureRegion defaultUpStance = mainActor[1][0];
     public static TextureRegion defaultLeftStance = mainActor[1][1];
     public static TextureRegion defaultRightStance = mainActor[0][1];
+
+
+    public static TextureRegion[][] pokemonImages= TextureRegion.split((pokemonImageSet), 16, 16);//grabs index of player image for movement
+    public static TextureRegion charzard = pokemonImages[0][5];
 
 
 }

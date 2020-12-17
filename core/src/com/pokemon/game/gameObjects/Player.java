@@ -9,6 +9,11 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.pokemon.game.GameConstants;
+import com.pokemon.game.PokemonGame;
+import com.pokemon.game.screens.CatchScreen;
+import com.pokemon.game.screens.MainGameScreen;
+
+import java.util.HashMap;
 
 public class Player extends Sprite implements InputProcessor {
     private Vector2 velocity = new Vector2();
@@ -16,6 +21,9 @@ public class Player extends Sprite implements InputProcessor {
     private float currentSpeed;
     private float weight = 40;
     private int row, col;
+    private int grassCounter = 0;
+    private PokemonGame game;
+    private HashMap<String, Pokemon> playerPokemons;
 
     private TiledMapTileLayer collisionSpot;
 //    private static TextureRegion playerLook = mainActor[0][0];
@@ -24,6 +32,7 @@ public class Player extends Sprite implements InputProcessor {
     public Player(Sprite batch, TiledMapTileLayer collisionLayer) {
         super(batch);
         this.collisionSpot = collisionLayer;
+        playerPokemons = new HashMap<>();
 //        this.currentSpeed = playerSpeed;
     }
 
@@ -31,64 +40,43 @@ public class Player extends Sprite implements InputProcessor {
     public void draw(Batch batch) {
         update(Gdx.graphics.getDeltaTime());
         super.draw(batch);
-
-
     }
 
 
     public void update(float delta) {
-        float oldX = getX();
-        float oldY = getY();
-        float tileWidth = collisionSpot.getTileWidth();
-        float tileHeight = collisionSpot.getTileHeight();
-        boolean collisionX = false;
-        boolean collisionY = false;
-        int playerX = (int) (getX() / tileWidth);
-        int playerY = (int) (getY() / tileHeight);
-        boolean speedStatus;
-
-        setX(getX() + this.velocity.x * delta); //reposition with frames
-        setY(getY() + this.velocity.y * delta);
-
-        //Because I'm using if statements, it prioritzes up and left in checking collision
-
-        if(velocity.x < 0) {
-           collisionX = isCellBlocked(playerX - 1, playerY);
-           if(!collisionX) collisionX = isCellBlocked(playerX - 1, playerY -1);
-           if(!collisionX) collisionX = isCellBlocked(playerX - 1, playerY + 1);
-
-        } else if(velocity.x > 0) {
-            collisionX = isCellBlocked(playerX + 1, playerY);
-            if(!collisionX) collisionX = isCellBlocked(playerX + 1, playerY -1);
-            if(!collisionX) collisionX = isCellBlocked(playerX + 1, playerY + 1);
-        }
-
-        if(collisionX) {
-            setX(oldX);
-            setY(oldY);
-            this.velocity.x = 0;
-        }
-
-        if (velocity.y < 0) {
-                collisionY = isCellBlocked(playerX , playerY - 1);
-                if(!collisionY) collisionY = isCellBlocked(playerX - 1, playerY -1);
-                if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY - 1);
-
-        }else if (velocity.y > 0) {
-                //top left
-            collisionY = isCellBlocked(playerX , playerY + 1);
-            if(!collisionY) collisionY = isCellBlocked(playerX + 1, playerY + 1);
-            if(!collisionX) collisionY = isCellBlocked(playerX - 1, playerY + 1);
-            }
-
-        if(collisionY) {
-            setY(oldY);
-            setX(oldX);
-            this.velocity.y = 0;
-        }
 
     }
 
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
+    public String[] generatePokemonList(){
+        String[] list = new String[0];
+        int i = 0;
+        getPlayerPokemons().size();
+        for(Pokemon p : this.getPlayerPokemons().values()) {
+           list[i] = p.getName();
+           i++;
+        }
+
+        return list;
+    }
+
+    public void getPokemon(String name){
+
+    }
+    public HashMap<String, Pokemon> getPlayerPokemons() {
+        return playerPokemons;
+    }
+
+    public void setPlayerPokemons(HashMap<String, Pokemon> playerPokemons) {
+        this.playerPokemons = playerPokemons;
+    }
 
     public TiledMapTileLayer getCollisionLayer() {
         return collisionSpot;
@@ -111,8 +99,7 @@ public class Player extends Sprite implements InputProcessor {
         return weight;
     }
 
-
-    private boolean isCellBlocked(float x, float y){
+    public boolean isCellEnemy(float x, float y){
         TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
         if (cell == null) return false;            // not sure if this is needed
         if (cell.getTile() == null) return false;  // probably only tiles can be null
@@ -120,7 +107,27 @@ public class Player extends Sprite implements InputProcessor {
         MapProperties properties = cell.getTile().getProperties();
         if (properties == null) return false;      // also not sure if it can be null
 
-        return properties.containsKey("blocked");    }
+        return properties.containsKey("firstPokemon");    }
+
+    public boolean isCellFirstPokeMon(float x, float y){
+        TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
+        if (cell == null) return false;            // not sure if this is needed
+        if (cell.getTile() == null) return false;  // probably only tiles can be null
+
+        MapProperties properties = cell.getTile().getProperties();
+        if (properties == null) return false;      // also not sure if it can be null
+
+        return properties.containsKey("firstPokemon");    }
+
+    public boolean isCellGrass(float x, float y){
+        TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
+        if (cell == null) return false;            // not sure if this is needed
+        if (cell.getTile() == null) return false;  // probably only tiles can be null
+
+        MapProperties properties = cell.getTile().getProperties();
+        if (properties == null) return false;      // also not sure if it can be null
+
+        return properties.containsKey("catchGrass");    }
 
     @Override
     public boolean keyDown(int keycode) {

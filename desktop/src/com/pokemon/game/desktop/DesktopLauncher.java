@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		config.height = GameConstants.GAMEHEIGHT;
 		config.useGL30 = true;
 
-		config.resizable= false;
+//		config.resizable= false;
 		config.vSyncEnabled = true; //maybe delete
 		new LwjglApplication(new PokemonGame(), config);
 	}
