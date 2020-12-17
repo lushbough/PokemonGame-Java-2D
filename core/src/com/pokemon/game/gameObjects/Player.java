@@ -10,30 +10,23 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.pokemon.game.GameConstants;
 import com.pokemon.game.PokemonGame;
-import com.pokemon.game.screens.CatchScreen;
-import com.pokemon.game.screens.MainGameScreen;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Player extends Sprite implements InputProcessor {
     private Vector2 velocity = new Vector2();
     private float speed = 140;
-    private float currentSpeed;
-    private float weight = 40;
-    private int row, col;
-    private int grassCounter = 0;
     private PokemonGame game;
-    private HashMap<String, Pokemon> playerPokemons;
+    private HashMap<String, Pokemon> currentPokemon;
 
-    private TiledMapTileLayer collisionSpot;
-//    private static TextureRegion playerLook = mainActor[0][0];
+    private TiledMapTileLayer collisionLayer;
 
 
     public Player(Sprite batch, TiledMapTileLayer collisionLayer) {
         super(batch);
-        this.collisionSpot = collisionLayer;
-        playerPokemons = new HashMap<>();
-//        this.currentSpeed = playerSpeed;
+        this.collisionLayer = collisionLayer;
+        currentPokemon = new HashMap<>();
     }
 
     @Override
@@ -56,34 +49,34 @@ public class Player extends Sprite implements InputProcessor {
     }
 
     public String[] generatePokemonList(){
-        String[] list = new String[0];
+        String[] list = new String[getCurrentPokemon().size()];
         int i = 0;
-        getPlayerPokemons().size();
-        for(Pokemon p : this.getPlayerPokemons().values()) {
-           list[i] = p.getName();
+        getCurrentPokemon().size();
+        for(Map.Entry<String, Pokemon> entry : this.getCurrentPokemon().entrySet()) {
+           list[i] = entry.getValue().getName();
            i++;
         }
 
         return list;
     }
 
-    public void getPokemon(String name){
-
+    public Pokemon getPokemon(String name){
+        return this.currentPokemon.get(name);
     }
-    public HashMap<String, Pokemon> getPlayerPokemons() {
-        return playerPokemons;
+    public HashMap<String, Pokemon> getCurrentPokemon() {
+        return currentPokemon;
     }
 
-    public void setPlayerPokemons(HashMap<String, Pokemon> playerPokemons) {
-        this.playerPokemons = playerPokemons;
+    public void setCurrentPokemon(HashMap<String, Pokemon> currentPokemon) {
+        this.currentPokemon = currentPokemon;
     }
 
     public TiledMapTileLayer getCollisionLayer() {
-        return collisionSpot;
+        return collisionLayer;
     }
 
     public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
-        this.collisionSpot = collisionLayer;
+        this.collisionLayer = collisionLayer;
     }
 
     public float getSpeed() {
@@ -94,33 +87,20 @@ public class Player extends Sprite implements InputProcessor {
         this.speed = speed;
     }
 
-
-    public float getWeight() {
-        return weight;
-    }
-
     public boolean isCellEnemy(float x, float y){
-        TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)x, (int) y);
         if (cell == null) return false;            // not sure if this is needed
         if (cell.getTile() == null) return false;  // probably only tiles can be null
 
         MapProperties properties = cell.getTile().getProperties();
         if (properties == null) return false;      // also not sure if it can be null
 
-        return properties.containsKey("firstPokemon");    }
+        return properties.containsKey("enemy");    }
 
-    public boolean isCellFirstPokeMon(float x, float y){
-        TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
-        if (cell == null) return false;            // not sure if this is needed
-        if (cell.getTile() == null) return false;  // probably only tiles can be null
 
-        MapProperties properties = cell.getTile().getProperties();
-        if (properties == null) return false;      // also not sure if it can be null
-
-        return properties.containsKey("firstPokemon");    }
 
     public boolean isCellGrass(float x, float y){
-        TiledMapTileLayer.Cell cell = collisionSpot.getCell((int)x, (int) y);
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)x, (int) y);
         if (cell == null) return false;            // not sure if this is needed
         if (cell.getTile() == null) return false;  // probably only tiles can be null
 
