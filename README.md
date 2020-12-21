@@ -5,8 +5,8 @@
 ## Description   : This is a 2D platformer tile map game made with LibGDX and Intellij, along with Tiled game map editor. It aims to mimic the Gameboy Pokemon games. The catching Pokemon and battling phases are currently handled through JOptionalPanel but will soon be handled by LibGDX's Dialog class.
 
 ## How to Run : double click .jar file in jar folder or
-        open "csc413-secondgame-whereswul" in terminal 
-        type then press enter: 
+        open "PokemonGame-Java-2d" in terminal 
+        then type: 
               cd jar
               java -jar pokemon.jar    
     
@@ -25,7 +25,5 @@
 ## src folder is located at /core/src
 
 ## resources folder is labeled assets, located at /android/assets
-
-## jar folder is used to store the built jar of your term-project. NO SOURCE CODE SHOULD BE IN THIS FOLDER. DOING SO WILL CAUSE POINTS TO BE DEDUCTED
 
 
