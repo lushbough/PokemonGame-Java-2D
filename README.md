@@ -6,8 +6,7 @@
 
 ## Screenshots   : 
 
-![]("https://github.com/lushbough/PokemonGame-Java-2D/blob/master/pokepoke.PNG")
-
+<img src="https://github.com/lushbough/PokemonGame-Java-2D/blob/master/pokepoke.PNG">
 
 
 
