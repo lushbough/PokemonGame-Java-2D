@@ -6,7 +6,7 @@
 
 ## Screenshots   : 
 
-![github-large]("/pokepoke.PNG")
+![github-medium]("pokepoke.png")
 
 
 
