@@ -2,6 +2,13 @@
 
 ## Student Name  : William Lushbough
 ## Student ID    : 920631410
+
+
+##Screenshots:
+
+
+
+
 ## Description   : This is a 2D platformer tile map game made with LibGDX and Intellij, along with Tiled game map editor. It aims to mimic the Gameboy Pokemon games. The catching Pokemon and battling phases are currently handled through JOptionalPanel but will soon be handled by LibGDX's Dialog class.
 
 ## How to Run : double click .jar file in jar folder or
