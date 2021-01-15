@@ -1,4 +1,4 @@
-# csc413-SecondGame
+# Pokemon Tile Map Game Made in Java
 
 ## Student Name  : William Lushbough
 ## Student ID    : 920631410
