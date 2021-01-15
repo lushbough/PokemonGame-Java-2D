@@ -5,7 +5,7 @@
 ## Video Example: https://www.youtube.com/watch?v=Q-dNIN2e7G8
 ## Screenshots   : 
 
-<img src="https://github.com/lushbough/PokemonGame-Java-2D/blob/master/pokepoke.PNG" width=200 height=500>
+<img src="https://github.com/lushbough/PokemonGame-Java-2D/blob/master/pokepoke.PNG" width=200 height=300>
 
 
 
